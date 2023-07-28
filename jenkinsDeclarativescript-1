@@ -25,7 +25,6 @@ options {
  steps{
 
  git branch: 'development', credentialsId: '6374f7ba-ec40-499c-8c9d-918b74929134', url: 'https://github.com/nethajik21/maven-web-application.git
-
 }
 }
 
