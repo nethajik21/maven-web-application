@@ -37,6 +37,7 @@ sh "mvn clean package"
 }
 }
 
+/*
 //Execute sonarQube Report 
 stages('sonarQubeReport'){
 steps{
@@ -70,7 +71,7 @@ sshagent(['a0adeeef-0b78-48fe-892f-69bf54f70701']) {
 
 
 
-
+*/
 }//stages closing 
 
 post {
