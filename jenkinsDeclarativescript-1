@@ -24,7 +24,8 @@ options {
  stage('checkoutcode'){
  steps{
 
- git branch: 'development', credentialsId: '6374f7ba-ec40-499c-8c9d-918b74929134', url: 'https://github.com/nethajik21/maven-web-application.git
+git branch: 'development', credentialsId: '6374f7ba-ec40-499c-8c9d-918b74929134', url: 'https://github.com/nethajik21/maven-web-application.git'
+
 }
 }
 
@@ -38,9 +39,9 @@ sh "mvn clean package"
 
 /*
 //Execute sonarQube Report 
-stages('sonarQubeReport'){
+stage('sonarQubeReport'){
 steps{
-sh mvn clean sonar:sonar
+sh "mvn  sonar:sonar"
 }
 } 
 
@@ -59,15 +60,13 @@ sh "mvn clean deploy"
 stage('Deploy App into Tomcat Server'){
 steps{
 sshagent(['a0adeeef-0b78-48fe-892f-69bf54f70701']) {
-    sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@13.234.239.183:/opt/apache-tomcat-9.0.76/webapps/"
+    sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@3.110.106.221:/opt/apache-tomcat-9.0.76/webapps/"
 }
 
 } 
 
 
 }
-
-
 
 
 */
