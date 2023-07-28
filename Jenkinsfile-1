@@ -10,7 +10,7 @@ git branch: 'development', credentialsId: '6374f7ba-ec40-499c-8c9d-918b74929134'
 stage('Build'){
 sh "${mavenHome}/bin/mvn clean package"
 }
-/*
+
 stage('ExecuteSonarQubeReport'){
 sh "${mavenHome}/bin/mvn clean sonar:sonar"
 }
@@ -36,7 +36,7 @@ Regards,
 Netha Devops, ''', subject: 'Build Over ', to: 'nethajimahi98@gmail.com'
 
 }
-*/
+
 
 
 }
