@@ -1,0 +1,62 @@
+pipeline{
+    
+    agent any
+    
+    tools{
+        maven 'maven3.9.3'
+    }
+    
+  triggers {
+  pollSCM '* * * * *'
+  //cron('* * * * *')
+}
+
+options {
+    //Add the timestamps to the console output
+  timestamps()
+    //Discard Old Builds
+  buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '5', numToKeepStr: '5')
+}
+
+
+    stages{
+        //Get the code from Github
+        stage('checkout code'){
+            steps{
+                git branch: 'development', credentialsId: '6e1605bd-697f-4f06-9cca-66de22b5342a', url: 'https://github.com/nethajik21/maven-web-application.git'
+            }
+        }
+        
+        //Do the Build
+        stage('Build'){
+            steps{
+                sh "mvn clean package"
+            }
+        }
+        
+        //Execute sonarqube report
+        stage('ExecuteSonarqubeReport'){
+            steps{
+                sh "mvn sonar:sonar"
+            }
+        }
+        
+        //Upload Artifact into nexus server
+        stage('uploadArtifactintonexusserver'){
+            steps{
+                sh "mvn clean deploy"
+            }
+        }
+        
+        //Deploy App into Tomcat server
+        stage('DeployAppintoTomcatserver'){
+            steps{
+                sshagent(['29efbfb3-cbbb-4af8-832b-ca774b3a2c20']) {
+    sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@13.232.226.43:/opt/apache-tomcat-9.0.83/webapps"
+}
+            }
+        }
+        
+    }
+    
+}
