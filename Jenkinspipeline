@@ -1,6 +1,6 @@
 node{
 
-def mavenHome = tool name: "maven3.8.6"
+def mavenHome = tool name: "maven3.9.3"
 
 echo "Jenkins url is: ${env.JENKINS_URL}"
 echo "Node Name is: ${env.NODE_NAME}"
@@ -21,6 +21,7 @@ stage('Build'){
 sh "${mavenHome}/bin/mvn clean package"
 }
 
+*/
 stage('ExecuteSonarQubeReport'){
 sh "${mavenHome}/bin/mvn clean sonar:sonar"
 }
@@ -36,3 +37,4 @@ sshagent(['dc292b7a-3b39-4630-9fc3-1b806b54412c']) {
 }
 
 }
+*/
